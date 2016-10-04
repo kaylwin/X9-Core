@@ -1,4 +1,4 @@
-Flask-SocketIO
+Flask-SocketIO (DON'T MERGE IN! JUST FOR EXAMPLE CODE)
 ==============
 
 [![Build Status](https://travis-ci.org/miguelgrinberg/Flask-SocketIO.png?branch=master)](https://travis-ci.org/miguelgrinberg/Flask-SocketIO)
