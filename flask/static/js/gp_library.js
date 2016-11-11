@@ -55,6 +55,7 @@ function Gamepad() {
   var axes_off = new Object;
   var but_func = new Object;
   
+  //for button function diagnosing
   this.butfuncexist = function(key) {
     return but_func[key] != undefined;
   };
@@ -159,7 +160,7 @@ function Gamepad() {
     }
     
     but_func[btn][func_key] = f_full;
-    console.log(but_func[btn][func_key])
+    //console.log(but_func[btn][func_key]);
   }
   
   

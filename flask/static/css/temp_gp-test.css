@@ -24,6 +24,10 @@ div{
   margin: 0px 0px 0px 10px;
 }
 
+#binded {
+  padding: 0px 0px 0px 4px;
+}
+
 #pen{
   height: 99vh;
   width: 100%;

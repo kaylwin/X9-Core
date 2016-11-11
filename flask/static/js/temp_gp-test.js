@@ -100,7 +100,14 @@ $(document).ready(function() {
   });
   
   $("#bind").click(function() {
-    gp.bind("a", "press", function(arg) { arg.message.html("Re-link, </br>\'"+arg.btn+"\' says hi "+arg.count+" times!"); arg.count += 1; },
-            {message: $("#reset"), btn: "a", count: 0});
+    var binded = $("#binded");
+    if(gp.buttons.a != undefined) {
+      binded.html("Function bound. Press 'a' please");
+      gp.bind("a", "press", function(arg) { arg.message.html("Button '"+arg.btn+"\' has said</br>hello "+arg.count+" time(s)"); arg.count += 1; },
+              {message: binded, btn: "a", count: 1});
+      $("#bind").hide();
+    } else {
+      binded.text("Please bind a controller first");
+    }
   });
 });
