@@ -1,7 +1,7 @@
 from flask import Flask, render_template, json
 from flask import url_for
 from flask_socketio import SocketIO, send, emit
-from json import JSONEncoder
+import json
 
 from python.pressure import Pressure
 from python.imu import IMU
@@ -58,7 +58,7 @@ def send_packet():
 
     print("sent: " + json.dumps(packet))
 
-    socketio.emit("dearflask", packet, json=True)
+    socketio.emit("response", packet, json=True)
 
     global send_count
     send_count += 1
@@ -90,67 +90,67 @@ def build_dearclient():
     # Once this has been certified to work, the dictionary will be
     # created only once and then updated with new values in this method.
 
-                """
-                IMU:
-                +x is front of bot
-                +y is right of bot
-                +z is above bot
-                +pitch is rotating up
-                +roll is barrel roll right
-                +yaw is turning right
-                """
+                # """
+                # IMU:
+                # +x is front of bot
+                # +y is right of bot
+                # +z is above bot
+                # +pitch is rotating up
+                # +roll is barrel roll right
+                # +yaw is turning right
+                # """
 
-                """
-                Pressure:
-                pressure is in bars
-                temperature is in Celcius
-                """
+                # """
+                # Pressure:
+                # pressure is in bars
+                # temperature is in Celcius
+                # """
 
-                """
-                THRUSTERS:
-                Each thruster's data is specified here
-                Mapping:
-                    t0
-                    t1
-                    t2
-                    t3
-                    t4
-                    t5
-                    t6
-                    t7
-                Power is -100 to 100
-                """
+                # """
+                # THRUSTERS:
+                # Each thruster's data is specified here
+                # Mapping:
+                #     t0
+                #     t1
+                #     t2
+                #     t3
+                #     t4
+                #     t5
+                #     t6
+                #     t7
+                # Power is -100 to 100
+                # """
 
-    json = JSONEncoder.encode("""
+    packet = json.loads("""
         {   \"Sensors\" : {
                 \"IMU\" : {
-                    \"x\" : """ + imu.x + """,
-                    \"y\" : """ + imu.y + """,
-                    \"z\" : """ + imu.z + """,
-                    \"pitch\" : """ + imu.pitch + """,
-                    \"roll\" : """ + imu.roll + """,
-                    \"yaw\" : """ + imu.yaw + """
+                    \"x\" : """ + str(imu.x) + """,
+                    \"y\" : """ + str(imu.y) + """,
+                    \"z\" : """ + str(imu.z) + """,
+                    \"pitch\" : """ + str(imu.pitch) + """,
+                    \"roll\" : """ + str(imu.roll) + """,
+                    \"yaw\" : """ + str(imu.yaw) + """
                 },
 
                 \"PRESSURE\" : {
-                    \"pressure\" : """ + pressure.pressure + """,
-                    \"temperature\" : """ + pressure.temperature + """
+                    \"pressure\" : """ + str(pressure.pressure) + """,
+                    \"temperature\" : """ + str(pressure.temperature) + """
                 }
             },
 
             \"Thrusters\" : {
-                \"t0\" : { \"power\" : """ + thrusters.t1.power + """ },
-                \"t1\" : { \"power\" : """ + thrusters.t1.power + """ },
-                \"t2\" : { \"power\" : """ + thrusters.t1.power + """ },
-                \"t3\" : { \"power\" : """ + thrusters.t1.power + """ },
-                \"t4\" : { \"power\" : """ + thrusters.t1.power + """ },
-                \"t5\" : { \"power\" : """ + thrusters.t1.power + """ },
-                \"t6\" : { \"power\" : """ + thrusters.t1.power + """ },
-                \"t7\" : { \"power\" : """ + thrusters.t1.power + """ }
+                \"t0\" : { \"power\" : """ + str(thrusters.t1.power) + """ },
+                \"t1\" : { \"power\" : """ + str(thrusters.t1.power) + """ },
+                \"t2\" : { \"power\" : """ + str(thrusters.t1.power) + """ },
+                \"t3\" : { \"power\" : """ + str(thrusters.t1.power) + """ },
+                \"t4\" : { \"power\" : """ + str(thrusters.t1.power) + """ },
+                \"t5\" : { \"power\" : """ + str(thrusters.t1.power) + """ },
+                \"t6\" : { \"power\" : """ + str(thrusters.t1.power) + """ },
+                \"t7\" : { \"power\" : """ + str(thrusters.t1.power) + """ }
             }
         }""")
 
-    return json
+    return packet
 
 
 
