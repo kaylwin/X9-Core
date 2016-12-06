@@ -52,20 +52,41 @@
         }
     };
 
-
-
+    var start;
+    var average = 0;
+    var requests = 0;
+    var sum = 0;
 
     var socket = io.connect('http://' + document.domain + ':' + location.port);
 
-    socket.on('connect', function () {
-        socket.emit('dearflask', packet);
+    socket.on('dearclient', function (json) {
+
+        //console.log(json)
+            var stop = (new Date).getTime()
+            var total = stop - start
+           console.log(total)
+
+            requests += 1
+            sum += total
+            average = sum / requests
+
+            console.log("The average is " + average)
+
+
     });
 
-    socket.on("response", function(data) {
-        console.log(data);
-        setTimeout(function() {
-            socket.emit("dearclient")
-        }, 500);
+
+
+    socket.on("connect", function(data) {
+
+        console.log("CONNECTED!");
+
+        setInterval(function() {
+
+            start = (new Date).getTime()
+            socket.emit("dearflask");
+
+        }, 15);
     });
 
 

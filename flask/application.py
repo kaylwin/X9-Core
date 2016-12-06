@@ -51,14 +51,60 @@ def recieve_controls(json):
     print('received message: ' + str(json))
 
 
-@socketio.on('dearclient')
+@socketio.on('dearflask')
 def send_packet():
 
-    packet = build_dearclient()
+    packet = {
+
+        "controls": {
+            "absolutecontrols" : {
+                "x" : 1,
+                "y" : 1,
+                "z" : 1,
+                "roll" : 1,
+                "pitch" : 1,
+                "yaw" : 1
+            },
+            "controls" : {
+                "buttons" : {
+                    "a": 1,
+                    "b": 1,
+                    "x": 1,
+                    "y": 1,
+                    "z": 1,
+                    "lb": 1,
+                    "rb": 1,
+                    "lt": 1,
+                    "rt": 1,
+                    "slct": 1,
+                    "strt": 1,
+                    "lpress": 1,
+                    "rpress": 1,
+                    "up": 1,
+                    "down": 1,
+                    "left": 1,
+                    "right": 1
+                },
+                "axes": {
+                    "left": {
+                        "x": 0,
+                        "y": 1
+                    },
+                    "right": {
+                        "x": 2,
+                        "y": 3
+                    }
+
+                }
+            }
+
+        }
+    }
+
 
     print("sent: " + json.dumps(packet))
 
-    socketio.emit("dearflask", packet, json=True)
+    socketio.emit("dearclient", packet, json=True)
 
     global send_count
     send_count += 1
@@ -100,57 +146,6 @@ def build_dearclient():
                 +yaw is turning right
                 """
 
-                """
-                Pressure:
-                pressure is in bars
-                temperature is in Celcius
-                """
-
-                """
-                THRUSTERS:
-                Each thruster's data is specified here
-                Mapping:
-                    t0
-                    t1
-                    t2
-                    t3
-                    t4
-                    t5
-                    t6
-                    t7
-                Power is -100 to 100
-                """
-
-    json = JSONEncoder.encode("""
-        {   \"Sensors\" : {
-                \"IMU\" : {
-                    \"x\" : """ + imu.x + """,
-                    \"y\" : """ + imu.y + """,
-                    \"z\" : """ + imu.z + """,
-                    \"pitch\" : """ + imu.pitch + """,
-                    \"roll\" : """ + imu.roll + """,
-                    \"yaw\" : """ + imu.yaw + """
-                },
-
-                \"PRESSURE\" : {
-                    \"pressure\" : """ + pressure.pressure + """,
-                    \"temperature\" : """ + pressure.temperature + """
-                }
-            },
-
-            \"Thrusters\" : {
-                \"t0\" : { \"power\" : """ + thrusters.t1.power + """ },
-                \"t1\" : { \"power\" : """ + thrusters.t1.power + """ },
-                \"t2\" : { \"power\" : """ + thrusters.t1.power + """ },
-                \"t3\" : { \"power\" : """ + thrusters.t1.power + """ },
-                \"t4\" : { \"power\" : """ + thrusters.t1.power + """ },
-                \"t5\" : { \"power\" : """ + thrusters.t1.power + """ },
-                \"t6\" : { \"power\" : """ + thrusters.t1.power + """ },
-                \"t7\" : { \"power\" : """ + thrusters.t1.power + """ }
-            }
-        }""")
-
-    return json
 
 
 
