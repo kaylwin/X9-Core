@@ -1,10 +1,14 @@
-The semi-set standard for IMU packets
+#Get a standard with Cams&Sensors, then we'll figure out how to make the JSON packaging match on our end.</br>
+_push for the standard, we can take it from there_
 
-x & yaw comes from one joystick
-pitch and roll comes from another joystick
+###This should be the IMU component of the JSON packet sent to the server.
 
-+z and -z would be right & left triggers
-+y and -y would be right & left bumpers
+x & y can be pulled from a gamepad joystick</br>
+pitch and yaw can be another joystick</br>
+z would take 2 buttons (left&right triggers? a&b?)</br>
+roll would take 2 buttons (left&right bumpers)</br>
 
-joysticks can be interchangeable (later)
-pitch should be able to be inverted
+
+*joysticks should be interchangeable (later)
+
+**pitch should be able to be inverted
