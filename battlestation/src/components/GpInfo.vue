@@ -34,8 +34,8 @@
     methods: {
       update_gp: function() {
           var that = this;
-          //console.log(this.buttons);
-          //console.log(this.axes);
+          console.log(this.buttons);
+          console.log(this.axes);
           Object.keys(gp.buttons).forEach(function(key_b, i) {
             that.buttons[i] = { name: key_b, val: gp.buttons[key_b].val };
           });/*
