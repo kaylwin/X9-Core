@@ -12,7 +12,7 @@
                     <IMU :data="packet.IMU"></IMU>
                 </Card>
                 <Card class="half-width half-height">
-                    <DataView title="Pressure:" :data="packet.pressure"></DataView>
+                    <DataView title="Pressure:" :data="packet.Pressure"></DataView>
                 </Card>
                 <Card class="half-width half-height">
                     <IMU :data="packet.IMU"></IMU>
@@ -51,7 +51,7 @@ export default {
               roll: 0,
               yaw: 0
             },
-            PRESSURE: {
+            Pressure: {
               pressure: 0,
               temperature: 0
             },
@@ -80,7 +80,7 @@ export default {
         socket.on("dearflask", function(d) {
             vm.packet = d
             setTimeout(function() {
-                socket.emit("dearclient")
+                socket.emit("dearclient"); console.log("App updating");
             }, 10);
         });
         

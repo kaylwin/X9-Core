@@ -5,31 +5,6 @@ import os
 
 from rov.rov import ROV
 
-packet = {
-    IMU: {
-        x: 7,
-        y: 6,
-        z: 5,
-        pitch: 4,
-        roll: 3,
-        yaw: 2
-    },
-    PRESSURE: {
-        pressure: 9,
-        temperature: 72
-    },
-    Thrusters: {
-        t0 : { power: "11"},
-        t1 : { power: "14"},
-        t2 : { power: "23"},
-        t3 : { power: "7"},
-        t4 : { power: "15"},
-        t5 : { power: "4"},
-        t6 : { power: "18"},
-        t7 : { power: "10"}
-    }
-}
-
 """
 PRIMARY FLASK APPLICATION:
 
@@ -66,15 +41,11 @@ def send_font_files(path):
 
 @app.route('/UI/gp/<path:path>')
 def send_UI_files(path):
-#    print "UI file"
-#    print path
     print os.path.dirname(os.path.realpath(__file__))
     return send_from_directory('frontend/gamepad/', path)
 
 @app.route('/UI/pg2/<path:path>')
 def send_index2_page_files(path):
-    print "Page file"
-    print path
     return app.send_static_file('src/'+path)
 
 # SOCKET-IO:

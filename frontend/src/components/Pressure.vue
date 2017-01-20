@@ -1,36 +1,26 @@
 <template>
-    <div id="Pressure-orient">
-        <p>{{ pressurehead }}</p>
-        <ul id="pressure-stats">
-            <li v-for="pressure changing">
-                {{ item.head+item.val }}
-            </li>
+    <div>
+        <h1>Pressure:</h1>
+        <hr>
+        <ul v-for="(value, key) in data">
+            <li>{{key}}: {{value.pressure}}</li>
+            <hr>
         </ul>
     </div>
 </template>
 
 <script>
     export default {
-        name: 'pressure-orient',
-        props: ['pressurehead'],
-        data: function() {
-            return {
-                moving: [
-                    { head: "Pressure: ", val: 0 + " bars" },
-                    { head: "Temperature: ", val: 0 + " Celcius" }
-                ]
-            }
-        },
-        methods: {
-            update: function(info) {
-                console.log('update')
-                var titles = ["pressure", "temperature"];
-                this.moving[0].val = info[titles[0]];
-                this.moving[1].val = info[titles[1]];
-            }
-        },
+        props: ['data'],
+      
         mounted: function() {
-            setInterval(this.update, 500)
+            console.log(this.data);
         }
     }
 </script>
+
+<style scoped>
+h1 {
+    font-weight: 400;
+}
+</style>
