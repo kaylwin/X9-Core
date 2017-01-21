@@ -12,10 +12,10 @@
                     <IMU :data="packet.IMU"></IMU>
                 </Card>
                 <Card class="half-width half-height">
-                    <DataView title="Pressure:" :data="packet.Pressure"></DataView>
+                    <Press :data="packet.Pressure"></Press>
                 </Card>
                 <Card class="half-width half-height">
-                    <IMU :data="packet.IMU"></IMU>
+                    <DataView title="Pressure:" :data="packet.Pressure"></DataView>
                 </Card>
                 <Card class="half-width half-height">
                     <IMU :data="packet.IMU"></IMU>
@@ -31,6 +31,8 @@ var CameraView = require("./CameraView.vue")
 var IMU = require("./IMU.vue")
 var DataView = require("./DataView.vue")
 var Card = require("./Card.vue")
+var Press = require("./Pressure.vue")
+
 
 export default {
     components: {
@@ -44,12 +46,12 @@ export default {
         return {
             packet: {
             IMU: {
-              x: 0,
+              x: 8,
               y: 0,
-              z: 0,
-              pitch: 0,
+              z: 8,
+              pitch: 8,
               roll: 0,
-              yaw: 0
+              yaw: 8
             },
             Pressure: {
               pressure: 0,

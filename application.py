@@ -89,7 +89,6 @@ def error_handler(e):
 
 
 def build_dearclient():
-
     return rov.data
 
 

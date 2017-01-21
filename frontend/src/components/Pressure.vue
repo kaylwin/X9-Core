@@ -1,11 +1,13 @@
-<template>
+template>
     <div>
         <h1>Pressure:</h1>
         <hr>
-        <ul v-for="(value, key) in data">
-            <li>{{key}}: {{value.pressure}}</li>
-            <hr>
-        </ul>
+        <div class="pressurebox">
+            <p>Pressure: {{data.pressure}}</p>
+        </div>
+        <div class="pressurebox">
+            <p>Temprature: {{data.temprature}}</p>
+        </div>
     </div>
 </template>
 
@@ -22,5 +24,10 @@
 <style scoped>
 h1 {
     font-weight: 400;
+}
+
+.pressurebox {
+  border: 1px black solid;
+  padding: 4px;
 }
 </style>
