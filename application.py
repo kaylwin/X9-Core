@@ -20,7 +20,7 @@ app = Flask(__name__, static_url_path="", static_folder="frontend")
 socketio = SocketIO(app, async_mode=None)
 
 rov = ROV()
-
+tmp_stus = "{IMU: {x: 3, y: 3, z: 3, pitch: 3, roll: 2, yaw: 2}, Pressure: {pressure: 2319, temperature: 0}, Thrusters: {t0: { power: 0}, t1: { power: 0}, t2: { power: 0}, t3: { power: 0}, t4: { power: 0}, t5: { power: 0}, t6: { power: 0}, t7: { power: 0} } }"
 
 # ROUTING:
 @app.route('/')
@@ -53,20 +53,10 @@ def send_index2_page_files(path):
 def recieve_controls(data):
     # parse json controls object into onside object.
     # print("controls: " + str(json))
-    print('received message: ' + str(data))
+    # print('received message: ' + str(data))
+    send_packet()
 
-
-@socketio.on('dearclient')
-def send_packet():
-
-    packet = build_dearclient()
-
-    #print "Sent:"
-    #print packet
-
-    socketio.emit("dearflask", packet, json=True)
-
-
+    
 @socketio.on('connect')
 def on_connect():
     print("CLIENT CONNECTED!")
@@ -88,8 +78,19 @@ def error_handler(e):
 # HELPER METHODS:
 
 
+def send_packet():
+
+    packet = build_dearclient()
+
+    #print "Sent:"
+    #print packet
+
+    socketio.emit("dearclient", packet, json=True)
+
+
 def build_dearclient():
-    return rov.data
+    #return rov.data
+    return tmp_stus
 
 
 if __name__ == '__main__':

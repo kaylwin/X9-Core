@@ -1,10 +1,12 @@
-template>
+<template>
     <div>
-        <h1>Pressure:</h1>
+        <h1>PRESSURE:</h1>
         <hr>
         <div class="pressurebox">
             <p>Pressure: {{data.pressure}}</p>
         </div>
+        <h1>TEMPERATURE:</h1>
+        <hr>
         <div class="pressurebox">
             <p>Temprature: {{data.temprature}}</p>
         </div>

@@ -35,7 +35,7 @@ var run = function(abt) {
 $(document).ready(function() {
 //  var abt = $("#titles");
   gp.set();
-  
+  //var update = window.setInterval(function() {}, 250);  
   go1 = window.setInterval(function() { run(); }, 50);
   
   

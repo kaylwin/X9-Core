@@ -12,7 +12,7 @@
                     <IMU :data="packet.IMU"></IMU>
                 </Card>
                 <Card class="half-width half-height">
-                    <Press :data="packet.Pressure"></Press>
+                    <Pres_Temp :data="packet.Pressure"></Pres_Temp>
                 </Card>
                 <Card class="half-width half-height">
                     <DataView title="Pressure:" :data="packet.Pressure"></DataView>
@@ -31,7 +31,7 @@ var CameraView = require("./CameraView.vue")
 var IMU = require("./IMU.vue")
 var DataView = require("./DataView.vue")
 var Card = require("./Card.vue")
-var Press = require("./Pressure.vue")
+var Pres_Temp = require("./Pressure.vue")
 
 
 export default {
@@ -40,51 +40,76 @@ export default {
         CameraView,
         IMU,
         Card,
-        DataView
+        DataView,
+        Pres_Temp
     },
     data: function() {
         return {
             packet: {
-            IMU: {
-              x: 8,
-              y: 0,
-              z: 8,
-              pitch: 8,
-              roll: 0,
-              yaw: 8
-            },
-            Pressure: {
-              pressure: 0,
-              temperature: 0
-            },
-            Thrusters: {
-              t0 : { power: "0"},
-              t1 : { power: "0"},
-              t2 : { power: "0"},
-              t3 : { power: "0"},
-              t4 : { power: "0"},
-              t5 : { power: "0"},
-              t6 : { power: "0"},
-              t7 : { power: "0"}
+                IMU: {
+                  x: 8,
+                  y: 0,
+                  z: 8,
+                  pitch: 8,
+                  roll: 0,
+                  yaw: 8
+                },
+                Pressure: {
+                  pressure: 0,
+                  temperature: 0
+                },
+                Thrusters: {
+                  t0: { power: "0"},
+                  t1: { power: "0"},
+                  t2: { power: "0"},
+                  t3: { power: "0"},
+                  t4: { power: "0"},
+                  t5: { power: "0"},
+                  t6: { power: "0"},
+                  t7: { power: "0"}
+                }
             }
-          }
         };
     },
     mounted: function() {
-        var vm = this
+        var vm = this;
+        
+        gp.vue = vm;
+        
+        var go1 = -1;
+        var go2 = -1;
+        gp.set();
+        go1 = window.setInterval(function() {
+            if(gp.ready) {
+                window.clearInterval(go1);
+                go1 = -1;
+                bind.activate();
+                go2 = window.setInterval(function() {
+                  gp.get_current();
+                });
+            }
+        });
 
         var socket = io.connect('http://' + document.domain + ':' + location.port);
 
         socket.on('connect', function () {
             console.log("connected")
         });
+        
+        var app_refresh = setInterval(function() {
+            socket.emit("dearflask", JSON.stringify(controls));
+        }, 50);
 
-        socket.on("dearflask", function(d) {
-            vm.packet = d
-            setTimeout(function() {
-                socket.emit("dearclient"); console.log("App updating");
-            }, 10);
+        socket.on("dearclient", function(status) {
+            Object.keys(status).forEach(function(key, i) {
+                vm.packet[key] = status[key];
+            });
+            //setTimeout(function() {
+                //console.log(vm.packet);
+            //}, 10);
         });
+        
+        socket.emit("helpme", controls);
         
         console.log(vm.packet);
     }
