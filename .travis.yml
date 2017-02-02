@@ -1,12 +1,13 @@
 language: python
-
 sudo: required
 python:
     "2.7"
 
-install:
-    pip install Flask SocketIO
-    npm install socket.io
+
+language: node_js    
+
+pip install Flask SocketIO
+ npm install socket.io
 script: pytest    
 
 
