@@ -6,6 +6,7 @@ python:
 
 install:
     pip install Flask SocketIO
+    npm install socket.io
 script: pytest    
 
 
