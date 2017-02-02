@@ -5,9 +5,7 @@ python:
 
 
 language: node_js    
-
-pip install Flask SocketIO
+install:
+ pip install Flask SocketIO
+install: 
  npm install socket.io
-script: pytest    
-
-
